@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS + CSS Clock</title>
+    <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<style>
+    html {
+        background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+        background-size: cover;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    body {
+        margin: 0;
+        font-size: 2rem;
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
+    }
+
+    .clock {
+        width: 30rem;
+        height: 30rem;
+        margin: 50px auto;
+        padding: 2rem;
+        border: 20px solid white;
+        border-radius: 50%;
+        position: relative;
+        box-shadow: 0 0 2px rgb(9, 9, 48),
+            inset 0 0 0 3px rgb(233, 228, 228),
+            inset 0 0 10px rgb(37, 12, 12),
+            0 0 10px rgb(9, 19, 34);
+    }
+    .frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+    .hand{
+        background: black;
+        position: absolute;
+        width: 50%;
+        height: 6px;
+        top: 50%;
+        transform-origin: 100%;
+        transform: rotate(90deg);
+        transition: all 0.05s;
+        transition-timing-function: cubic-bezier(.41,.39,.76,2.46);
+    }
+
+
+</style>
+
+<body>
+    <div class="clock">
+        <div class="frame">
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="hand second"></div>
+        </div>
+    </div>
+    <script>
+        const second = document.querySelector('.second');
+        const min = document.querySelector('.minute');
+        const hr = document.querySelector('.hour');
+        function setsec(){
+            const date = new Date();
+            const sec_deg = (date.getSeconds() * 6)  + 90 ;
+            second.style.transform = `rotate(${sec_deg}deg)`;
+
+            const min_deg = (date.getMinutes() * 6) + (date.getSeconds()/10) + 90 ;
+            min.style.transform = `rotate(${min_deg}deg)`;
+            
+            const hr_deg = (date.getHours() * 30) + (date.getMinutes() / 2) + 90 ;
+            hr.style.transform = `rotate(${hr_deg}deg)`;
+        }
+
+        setInterval(setsec, 1000);
+        // setInterval(setmin, 60000);
+        // setInterval(sethour, 3600000);
+    </script>
+</body>
+
+</html>
